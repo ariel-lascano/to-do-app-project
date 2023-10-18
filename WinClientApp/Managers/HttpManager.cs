@@ -24,13 +24,15 @@ namespace WinClientApp.Managers
             return response.IsSuccessStatusCode;
         }
 
-        internal async Task<IEnumerable<ToDoItem>> ExecuteGet()
+        internal IEnumerable<ToDoItem> ExecuteGet()
         {
-            HttpResponseMessage response = await _httpClient.GetAsync(Resources.BASE_URI);
-            if (response.IsSuccessStatusCode)
-                return await response.Content.ReadFromJsonAsync<List<ToDoItem>>();
+            HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, Resources.BASE_URI);
+            HttpResponseMessage httpResponse = _httpClient.Send(httpRequestMessage);
 
-            return null;
+            if (httpResponse.IsSuccessStatusCode)
+                return httpResponse.Content.ReadFromJsonAsync<IEnumerable<ToDoItem>>().Result;
+            
+            return new List<ToDoItem>();
         }
 
         internal async Task<IEnumerable<ToDoItem>> ExecuteUpdate(ToDoItem toDoItem)

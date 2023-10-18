@@ -32,8 +32,7 @@ namespace WinClientApp.Managers
 
         internal IEnumerable<ToDoItem> GetAll()
         {
-            Task<IEnumerable<ToDoItem>> dataSource = HttpManager.ExecuteGet();
-            return dataSource.Result;
+            return HttpManager.ExecuteGet();
         }
 
     }
