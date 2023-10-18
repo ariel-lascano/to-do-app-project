@@ -15,4 +15,8 @@
     <Folder Include="Database\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SharedModel\SharedModel.csproj" />
+  </ItemGroup>
+
 </Project>
