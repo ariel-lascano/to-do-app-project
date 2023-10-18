@@ -7,3 +7,7 @@
 /dataSources/
 /dataSources.local.xml
 /.vs
+/WebAPI/.vs/WebAPI
+/WebAPI/bin/Debug/net6.0
+/WebAPI/obj
+/WebAPI/WebAPI.csproj.user

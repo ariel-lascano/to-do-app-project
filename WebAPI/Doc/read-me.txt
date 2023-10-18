@@ -1,0 +1,24 @@
+﻿*** About database
+- in 'Database' directory you can find query used for create data table 'dbo.data' and a stored query for fill 
+	table adding sample data.
+
+- repository.bak is backup file used for todo-data if you wish to restore it, connection string has been define in apssettings.json 
+
+- actions on database, for tests, has been executed using SQL SERVER MANAGEMENT STUDIO
+
+*** About WebAPI solution
+
+- Default startup page list all entries in database
+
+- DTO is ToDoItem, it maps database table structure
+
+- EntityFramework is used as bridge between runtime-dto-object and database, in this way I can avoid low level operations such as 
+write query manual for get data and any other operation
+
+- ItemsController manage CRUD operations, READ and DELETE works also from browser:
+
+	- Startup uri/READ ALL: http://localhost:5118/items
+	- READ by ID: http://localhost:5118/items/3
+	- DELETE by ID: http://localhost:5118/items/delete/3
+
+Has been also defined 2 methods for create and update picking data from body of http request, tested using PostMan.
