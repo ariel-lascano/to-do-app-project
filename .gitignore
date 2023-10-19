@@ -8,12 +8,10 @@
 /dataSources.local.xml
 /.vs
 /WebAPI/.vs/WebAPI
-/WebAPI/bin/Debug/net6.0
 /WebAPI/obj
 /WebAPI/WebAPI.csproj.user
 /SharedModel/bin/Debug/net6.0
 /SharedModel/obj
 /WinClientApp/.vs
-/WinClientApp/bin/Debug/net6.0-windows
 /WinClientApp/obj
 /WinClientApp/WinClientApp.csproj.user
