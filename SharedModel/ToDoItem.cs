@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace SharedModel
 {
@@ -10,17 +11,21 @@ namespace SharedModel
     public class ToDoItem
     {
         [Key]
+        [JsonPropertyName("id")]
         public int ID { get; set; }
+        [JsonPropertyName("visualOrder")]
         public int VisualOrder { get; set; }
+        [JsonPropertyName("name")]
         public string Name { get; set; }
-        public string? Description { get; set; }
+        [JsonPropertyName("description")]
+        public string Description { get; set; }
 
         public ToDoItem()
         {
                 
         }
         
-        public ToDoItem(int visualOrder, string name, string? description)
+        public ToDoItem(int visualOrder, string name, string description)
         {
             VisualOrder = visualOrder;
             Name = name; 

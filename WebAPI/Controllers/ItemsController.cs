@@ -100,7 +100,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="id"> argument for delete. </param>
         /// <returns> Result: </returns>
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var item = await _context.Data.FindAsync(id);
