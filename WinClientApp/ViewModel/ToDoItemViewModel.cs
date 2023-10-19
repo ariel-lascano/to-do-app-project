@@ -57,9 +57,14 @@ namespace WinClientApp.ViewModel
         {
             ToDoItem toDoItem = new ToDoItem(nextPriorityValue, Resources.NEW_ITEM_DEFAULT_NAME, string.Empty);
             toDoItem = Program.HttpClient.Execute<ToDoItem>(HttpAction.Create, toDoItem);
-            Program.HttpClient.SendNotificationToServer();
-            ToDoItemViewModel toDoItemViewModel = new ToDoItemViewModel(toDoItem);
-            return toDoItemViewModel;
+
+            if (toDoItem != null)
+            {
+                Program.HttpClient.SendNotificationToServer();
+                ToDoItemViewModel toDoItemViewModel = new ToDoItemViewModel(toDoItem);
+                return toDoItemViewModel;
+            }
+            return null;
         }
 
         internal static IEnumerable<ToDoItemViewModel> InitializeViewModels()

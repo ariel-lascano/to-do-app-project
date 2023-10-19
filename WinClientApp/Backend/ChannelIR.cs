@@ -2,7 +2,7 @@
 
 namespace WinClientApp.Backend
 {
-    internal class ChannelIR
+    internal class ChannelIR : IDisposable
     {
         private HubConnection _hubConnection;
         private string _logOnName;
@@ -59,5 +59,10 @@ namespace WinClientApp.Backend
             await _hubConnection.SendAsync("SendNotification", _logOnName);
         }
 
+        public void Dispose()
+        {
+            _hubConnection.StopAsync().Wait();
+            _hubConnection.DisposeAsync();
+        }
     }
 }

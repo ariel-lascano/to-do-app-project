@@ -55,6 +55,9 @@ namespace WinClientApp.Backend
 
         internal bool Execute(HttpAction action, ToDoItem data)
         {
+            if (!ChannelIR.IsConnected)
+                return false;
+
             GetRequestData(action, data, out HttpMethod method, out string uri, out string dataJson);
 
             using (HttpRequestMessage request = new HttpRequestMessage(method, uri))
@@ -69,6 +72,9 @@ namespace WinClientApp.Backend
 
         internal T Execute<T>(HttpAction action, ToDoItem data)
         {
+            if (!ChannelIR.IsConnected)
+                return default;
+
             GetRequestData(action, data, out HttpMethod method, out string uri, out string dataJson);
 
             using (HttpRequestMessage request = new HttpRequestMessage(method, uri))
@@ -96,13 +102,14 @@ namespace WinClientApp.Backend
 
         internal void SendNotificationToServer()
         {
-            ChannelIR.SendNotificationToServer().Wait();
+            if (ChannelIR.IsConnected)
+                ChannelIR.SendNotificationToServer().Wait();
         }
 
         public void Dispose()
         {
             _httpClient.Dispose();
-            // _channelIR.Dispose();
+            ChannelIR.Dispose();
         }
     }
 }

@@ -26,9 +26,7 @@ namespace WinClientApp
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Cursor = Cursors.WaitCursor;
             Program.HttpClient.Dispose();
-            Cursor = Cursors.Default;
         }
 
         private void refreshButton_Click(object sender, EventArgs e)
