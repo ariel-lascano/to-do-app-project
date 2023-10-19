@@ -61,11 +61,69 @@ namespace WinClientApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AddRow {
+            get {
+                object obj = ResourceManager.GetObject("AddRow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ArrowDownEnd {
+            get {
+                object obj = ResourceManager.GetObject("ArrowDownEnd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ArrowUpEnd {
+            get {
+                object obj = ResourceManager.GetObject("ArrowUpEnd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to http://localhost:5118/items.
         /// </summary>
         internal static string BASE_URI {
             get {
                 return ResourceManager.GetString("BASE_URI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Delete {
+            get {
+                object obj = ResourceManager.GetObject("Delete", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do You want remove item &apos;{0}&apos;?.
+        /// </summary>
+        internal static string DELETE_MESSAGE {
+            get {
+                return ResourceManager.GetString("DELETE_MESSAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove selected item.
+        /// </summary>
+        internal static string DELETE_SELECTED {
+            get {
+                return ResourceManager.GetString("DELETE_SELECTED", resourceCulture);
             }
         }
         
@@ -79,11 +137,56 @@ namespace WinClientApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to application/json.
+        /// </summary>
+        internal static string JSON_MEDIA_TYPE {
+            get {
+                return ResourceManager.GetString("JSON_MEDIA_TYPE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move down selected item.
+        /// </summary>
+        internal static string MOVE_DOWN {
+            get {
+                return ResourceManager.GetString("MOVE_DOWN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move up selected item.
+        /// </summary>
+        internal static string MOVE_UP {
+            get {
+                return ResourceManager.GetString("MOVE_UP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Todo....
+        /// </summary>
+        internal static string NEW_ITEM_DEFAULT_NAME {
+            get {
+                return ResourceManager.GetString("NEW_ITEM_DEFAULT_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to http://localhost:5118/items/{0}.
         /// </summary>
         internal static string UPDATE_URI_FORMAT {
             get {
                 return ResourceManager.GetString("UPDATE_URI_FORMAT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        internal static string WARNING {
+            get {
+                return ResourceManager.GetString("WARNING", resourceCulture);
             }
         }
     }

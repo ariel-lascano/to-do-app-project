@@ -1,9 +1,5 @@
 ﻿using SharedModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using WinClientApp.Enums;
 
 namespace WinClientApp.ViewModel
 {
@@ -11,20 +7,33 @@ namespace WinClientApp.ViewModel
     {
         private ToDoItem _toDoItemModel;
 
-        public int Priority 
+        internal int ID 
+        {
+            get => _toDoItemModel.ID;
+        }
+
+        internal int Priority 
         {
             get => _toDoItemModel.VisualOrder;
             set => _toDoItemModel.VisualOrder = value;
         }
-        public string Name 
+        internal string Name 
         {
             get => _toDoItemModel.Name;
             set => _toDoItemModel.Name = value;
         }
-        public string? Description 
+        internal string? Description 
         {
             get => _toDoItemModel.Description;
             set => _toDoItemModel.Description = value;
+        }
+
+        internal TreeNode ItemNode { get; set; }
+        internal DataGridViewRow ItemRow { get; set; }
+
+        internal ToDoItemViewModel(int visualOrder, string name, string description)
+        {
+            _toDoItemModel = new ToDoItem(visualOrder, name, description);
         }
 
         internal ToDoItemViewModel(ToDoItem toDoItem)
@@ -32,7 +41,24 @@ namespace WinClientApp.ViewModel
             _toDoItemModel = toDoItem;
         }
 
+        internal ToDoItem GetModel()
+        {
+            return _toDoItemModel; 
+        }
 
+        internal void SetModel(ToDoItem model)
+        {
+            _toDoItemModel = model;
+        }
 
+        internal static IEnumerable<ToDoItemViewModel> InitializeViewModels()
+        {
+            IEnumerable<ToDoItem> data = HttpManager.Instance.Execute<IEnumerable<ToDoItem>>(HttpAction.Read, null);
+            
+            if (data == null)
+                return new List<ToDoItemViewModel>();
+            else
+                return data.Select(item => new ToDoItemViewModel(item));
+        }
     }
 }

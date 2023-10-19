@@ -5,12 +5,13 @@ namespace WinClientApp
         public Form1()
         {
             InitializeComponent();
-            AfterInitializeComponent();
         }
 
-        private void AfterInitializeComponent()
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            Cursor = Cursors.WaitCursor;
+            HttpManager.Instance.Dispose();
+            Cursor = Cursors.Default;
         }
     }
 }
