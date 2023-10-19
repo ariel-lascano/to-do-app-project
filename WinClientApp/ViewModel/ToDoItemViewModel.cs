@@ -41,7 +41,6 @@ namespace WinClientApp.ViewModel
         internal void NotifyUpdate()
         {
             Program.HttpClient.Execute(HttpAction.Update, _toDoItemModel);
-            Program.HttpClient.SendNotificationToServer();
         }
 
         internal bool Remove()

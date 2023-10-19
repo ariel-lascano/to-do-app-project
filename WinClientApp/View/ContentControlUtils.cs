@@ -79,6 +79,7 @@ namespace WinClientApp.View
 
                 nearlyItem.NotifyUpdate();
                 selectedItem.NotifyUpdate();
+                Program.HttpClient.SendNotificationToServer();
 
                 selectedItem.ItemNode.TreeView.SelectedNode = selectedItem.ItemNode;
             }

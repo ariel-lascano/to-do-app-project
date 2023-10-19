@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
-using System.Security.Principal;
 
 namespace WinClientApp.Backend
 {
@@ -7,6 +6,9 @@ namespace WinClientApp.Backend
     {
         private HubConnection _hubConnection;
         private string _logOnName;
+
+        internal delegate void UpdateEvent(object sender, string from);
+        internal event UpdateEvent OnClientUpdateEvent;
 
         internal ChannelIR(string logOnName)
         {
@@ -19,19 +21,21 @@ namespace WinClientApp.Backend
                 .WithUrl("http://localhost:5118/notificationHub")  // URL del tuo server SignalR
                 .Build();
 
-            _hubConnection.On<string>("ReceiveNotification", message =>
+            _hubConnection.On<string>("ReceiveNotification", logOnName =>
             {
                 // Gestisci la notifica ricevuta dal server (es. aggiorna i dati dell'interfaccia utente).
-                UpdateUI(message);
+                Update(logOnName);
             });
 
             await _hubConnection.StartAsync();
         }
 
-        private void UpdateUI(string identity)
+        private void Update(string from)
         {
-            if (identity == _logOnName)
+            if (from == _logOnName)
                 return;
+
+            OnClientUpdateEvent.Invoke(this, from);
         }
 
         internal async Task SendNotificationToServer()

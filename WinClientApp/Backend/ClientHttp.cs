@@ -10,8 +10,8 @@ namespace WinClientApp.Backend
     internal class ClientHttp : IDisposable
     {
         private HttpClient _httpClient;
-        private ChannelIR _channelIR;
 
+        internal ChannelIR ChannelIR { get; }
         internal string LogOnName { get; }
 
         internal ClientHttp() 
@@ -20,7 +20,7 @@ namespace WinClientApp.Backend
             LogOnName = currentIdentity.Name;
 
             _httpClient = new HttpClient();
-            _channelIR = new ChannelIR(LogOnName);
+            ChannelIR = new ChannelIR(LogOnName);
         }
 
         private void GetRequestData(HttpAction action, ToDoItem data, out HttpMethod method, out string uri, out string dataJson)
@@ -96,7 +96,7 @@ namespace WinClientApp.Backend
 
         internal void SendNotificationToServer()
         {
-            _channelIR.SendNotificationToServer().Wait();
+            ChannelIR.SendNotificationToServer().Wait();
         }
 
         public void Dispose()

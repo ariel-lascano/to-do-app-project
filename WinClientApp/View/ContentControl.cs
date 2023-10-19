@@ -1,4 +1,5 @@
-﻿using WinClientApp.Enums;
+﻿using System.ComponentModel;
+using WinClientApp.Enums;
 using WinClientApp.Properties;
 using WinClientApp.ViewModel;
 
@@ -26,6 +27,7 @@ namespace WinClientApp.View
             ContentControlUtils.SetToolTip(cancelButton, Resources.DELETE_SELECTED);
 
             LoadData();
+            LoadEvents();
         }
 
         private void LoadData()
@@ -33,7 +35,6 @@ namespace WinClientApp.View
             int itemsCount = _dataSource.Count;
             TreeNode[] childNodes = new TreeNode[itemsCount];
             DataGridViewRow[] childRows = new DataGridViewRow[itemsCount];
-
 
             for (int index = 0; index < itemsCount; index++)
             {
@@ -47,10 +48,31 @@ namespace WinClientApp.View
             }
             _rootNode.Nodes.AddRange(childNodes);
             dataGridView.Rows.AddRange(childRows);
+            treeView.ExpandAll();
+        }
 
-            _rootNode.ExpandAll();
-
+        private void LoadEvents()
+        {
             dataGridView.CellValueChanged += dataGridView_CellValueChanged;
+            Program.HttpClient.ChannelIR.OnClientUpdateEvent += OnClientUpdateHandler;
+        }
+
+        public void OnClientUpdateHandler(object sender, string from)
+        {
+            string message = string.Format(Resources.REFRESH_MESSAGE, from);
+            Invoke(() =>
+            {
+                Parent.BringToFront();
+
+                if (MessageBox.Show(message, Resources.REFRESH_CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Stop) == DialogResult.OK)
+                {
+                    _dataSource = ToDoItemViewModel.InitializeViewModels().OrderBy(oi => oi.Priority).ToList();
+                    _rootNode.Nodes.Clear();
+                    dataGridView.Rows.Clear();
+
+                    LoadData();
+                }
+            });
         }
 
         private void dataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -69,6 +91,7 @@ namespace WinClientApp.View
             }
             // TODO: Error management
             toDoItemsViewModel.NotifyUpdate();
+            Program.HttpClient.SendNotificationToServer();
         }
 
         private void treeView_AfterSelect(object sender, TreeViewEventArgs e)

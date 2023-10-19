@@ -52,9 +52,9 @@
             // contentControl
             // 
             contentControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            contentControl.Location = new Point(12, 46);
+            contentControl.Location = new Point(12, 49);
             contentControl.Name = "contentControl";
-            contentControl.Size = new Size(760, 303);
+            contentControl.Size = new Size(760, 300);
             contentControl.TabIndex = 5;
             // 
             // Form1
@@ -63,8 +63,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(784, 361);
-            Controls.Add(logonButton);
             Controls.Add(contentControl);
+            Controls.Add(logonButton);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(600, 350);
             Name = "Form1";

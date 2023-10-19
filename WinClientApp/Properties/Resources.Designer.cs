@@ -192,6 +192,26 @@ namespace WinClientApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Refresh required.
+        /// </summary>
+        internal static string REFRESH_CAPTION {
+            get {
+                return ResourceManager.GetString("REFRESH_CAPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Items collection has been updated outside by client {0}
+        ///
+        ///REFRESH REQUIRED.
+        /// </summary>
+        internal static string REFRESH_MESSAGE {
+            get {
+                return ResourceManager.GetString("REFRESH_MESSAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to http://localhost:5118/items/{0}.
         /// </summary>
         internal static string UPDATE_URI_FORMAT {

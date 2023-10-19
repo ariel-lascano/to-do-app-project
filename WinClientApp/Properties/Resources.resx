@@ -169,4 +169,12 @@
   <data name="NEW_ITEM" xml:space="preserve">
     <value>Add new item</value>
   </data>
+  <data name="REFRESH_CAPTION" xml:space="preserve">
+    <value>Refresh required</value>
+  </data>
+  <data name="REFRESH_MESSAGE" xml:space="preserve">
+    <value>Items collection has been updated outside by client {0}
+
+REFRESH REQUIRED</value>
+  </data>
 </root>
