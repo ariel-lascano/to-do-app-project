@@ -7,14 +7,18 @@ namespace WinClientApp.Backend
         private HubConnection _hubConnection;
         private string _logOnName;
 
+
         internal delegate void UpdateEvent(object sender, string from);
         internal event UpdateEvent OnClientUpdateEvent;
+
+        internal bool IsConnected => _hubConnection.State == HubConnectionState.Connected;
 
         internal ChannelIR(string logOnName)
         {
             _logOnName = logOnName;
             StartConnection().Wait();
         }
+
         internal async Task StartConnection()
         {
             _hubConnection = new HubConnectionBuilder()
@@ -27,7 +31,13 @@ namespace WinClientApp.Backend
                 Update(logOnName);
             });
 
-            await _hubConnection.StartAsync();
+            try
+            {
+                await _hubConnection.StartAsync();
+            }
+            catch 
+            {
+            }
         }
 
         private void Update(string from)

@@ -100,6 +100,25 @@ namespace WinClientApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connection error.
+        /// </summary>
+        internal static string CONNECTION_ERROR_CAPTION {
+            get {
+                return ResourceManager.GetString("CONNECTION_ERROR_CAPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: server not reachable at address:
+        ///http://localhost:5118/items.
+        /// </summary>
+        internal static string CONNECTION_ERROR_MESSAGE {
+            get {
+                return ResourceManager.GetString("CONNECTION_ERROR_MESSAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Delete {
@@ -133,6 +152,16 @@ namespace WinClientApp.Properties {
         internal static string DELETE_URI_FORMAT {
             get {
                 return ResourceManager.GetString("DELETE_URI_FORMAT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EventWarning_16x {
+            get {
+                object obj = ResourceManager.GetObject("EventWarning_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

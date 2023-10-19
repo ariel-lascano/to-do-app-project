@@ -1,0 +1,2 @@
+﻿* Startup is blocked if server is not available
+* When external client update data on other clients a refresh button will appear

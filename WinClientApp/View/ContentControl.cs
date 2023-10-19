@@ -57,21 +57,31 @@ namespace WinClientApp.View
             Program.HttpClient.ChannelIR.OnClientUpdateEvent += OnClientUpdateHandler;
         }
 
+        internal new void Refresh()
+        {
+            _dataSource = ToDoItemViewModel.InitializeViewModels().OrderBy(oi => oi.Priority).ToList();
+            _rootNode.Nodes.Clear();
+            dataGridView.Rows.Clear();
+            LoadData();
+
+            base.Refresh();
+        }
+
+        /// <summary>
+        /// Called when an external client update datasource, in this case lock current control until user do not 
+        /// click refresh button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="from"></param>
         public void OnClientUpdateHandler(object sender, string from)
         {
             string message = string.Format(Resources.REFRESH_MESSAGE, from);
             Invoke(() =>
             {
-                Parent.BringToFront();
+                Form1 parent = (Form1)Parent;
 
-                if (MessageBox.Show(message, Resources.REFRESH_CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Stop) == DialogResult.OK)
-                {
-                    _dataSource = ToDoItemViewModel.InitializeViewModels().OrderBy(oi => oi.Priority).ToList();
-                    _rootNode.Nodes.Clear();
-                    dataGridView.Rows.Clear();
-
-                    LoadData();
-                }
+                parent.RefreshButton.Visible = true;
+                Enabled = false;
             });
         }
 

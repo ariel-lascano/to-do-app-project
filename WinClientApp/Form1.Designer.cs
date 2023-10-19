@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             logonButton = new Button();
             contentControl = new View.ContentControl();
+            refreshButton = new Button();
             SuspendLayout();
             // 
             // logonButton
@@ -57,12 +58,25 @@
             contentControl.Size = new Size(760, 300);
             contentControl.TabIndex = 5;
             // 
+            // refreshButton
+            // 
+            refreshButton.BackgroundImage = Properties.Resources.EventWarning_16x;
+            refreshButton.BackgroundImageLayout = ImageLayout.Center;
+            refreshButton.Location = new Point(14, 7);
+            refreshButton.Name = "refreshButton";
+            refreshButton.Size = new Size(47, 28);
+            refreshButton.TabIndex = 7;
+            refreshButton.UseVisualStyleBackColor = true;
+            refreshButton.Visible = false;
+            refreshButton.Click += refreshButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(784, 361);
+            Controls.Add(refreshButton);
             Controls.Add(contentControl);
             Controls.Add(logonButton);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -78,5 +92,6 @@
         #endregion
         private Button logonButton;
         private View.ContentControl contentControl;
+        private Button refreshButton;
     }
 }

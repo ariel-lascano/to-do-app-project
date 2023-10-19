@@ -70,7 +70,7 @@
             // 
             upButton.BackgroundImage = Properties.Resources.ArrowUpEnd;
             upButton.BackgroundImageLayout = ImageLayout.Center;
-            upButton.Location = new Point(3, 62);
+            upButton.Location = new Point(3, 104);
             upButton.Name = "upButton";
             upButton.Size = new Size(47, 28);
             upButton.TabIndex = 2;
@@ -81,7 +81,7 @@
             // 
             downButton.BackgroundImage = Properties.Resources.ArrowDownEnd;
             downButton.BackgroundImageLayout = ImageLayout.Center;
-            downButton.Location = new Point(3, 89);
+            downButton.Location = new Point(3, 131);
             downButton.Name = "downButton";
             downButton.Size = new Size(47, 28);
             downButton.TabIndex = 3;
@@ -114,6 +114,7 @@
             // dataGridView
             // 
             dataGridView.AllowUserToAddRows = false;
+            dataGridView.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = Color.WhiteSmoke;
             dataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -155,7 +156,8 @@
             priorityColumn.HeaderText = "Priority";
             priorityColumn.Name = "priorityColumn";
             priorityColumn.ReadOnly = true;
-            priorityColumn.Width = 77;
+            priorityColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+            priorityColumn.Width = 58;
             // 
             // nameColumn
             // 
@@ -164,7 +166,8 @@
             nameColumn.DefaultCellStyle = dataGridViewCellStyle4;
             nameColumn.HeaderText = "Name";
             nameColumn.Name = "nameColumn";
-            nameColumn.Width = 69;
+            nameColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+            nameColumn.Width = 50;
             // 
             // descriptionColumn
             // 
@@ -173,6 +176,7 @@
             descriptionColumn.DefaultCellStyle = dataGridViewCellStyle5;
             descriptionColumn.HeaderText = "Description";
             descriptionColumn.Name = "descriptionColumn";
+            descriptionColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // ContentControl
             // 

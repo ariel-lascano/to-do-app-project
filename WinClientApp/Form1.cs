@@ -1,7 +1,13 @@
+using System.Windows.Forms;
+using WinClientApp.Properties;
+using WinClientApp.ViewModel;
+
 namespace WinClientApp
 {
     public partial class Form1 : Form
     {
+        public Button RefreshButton => refreshButton;
+
         public Form1()
         {
             InitializeComponent();
@@ -23,6 +29,13 @@ namespace WinClientApp
             Cursor = Cursors.WaitCursor;
             Program.HttpClient.Dispose();
             Cursor = Cursors.Default;
+        }
+
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            contentControl.Refresh();
+            refreshButton.Visible = false;
+            contentControl.Enabled = true;
         }
     }
 }

@@ -1,4 +1,5 @@
 using WinClientApp.Backend;
+using WinClientApp.Properties;
 
 namespace WinClientApp
 {
@@ -15,9 +16,15 @@ namespace WinClientApp
             ApplicationConfiguration.Initialize();
 
             HttpClient = new ClientHttp();
-            Form1 mainWindow = new Form1(HttpClient.LogOnName);
-
-            Application.Run(mainWindow);
+            if (HttpClient.ChannelIR.IsConnected)
+            {
+                Form1 mainWindow = new Form1(HttpClient.LogOnName);
+                Application.Run(mainWindow);
+            }
+            else
+            {
+                MessageBox.Show(Resources.CONNECTION_ERROR_MESSAGE, Resources.CONNECTION_ERROR_CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
