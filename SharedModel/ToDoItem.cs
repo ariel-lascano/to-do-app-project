@@ -22,7 +22,6 @@ namespace SharedModel
 
         public ToDoItem()
         {
-                
         }
         
         public ToDoItem(int visualOrder, string name, string description)
@@ -30,11 +29,6 @@ namespace SharedModel
             VisualOrder = visualOrder;
             Name = name; 
             Description = description; 
-        }
-
-        public ToDoItem(int id, int visualOrder, string name, string? description) : this(visualOrder, name, description)
-        {
-            ID = id;
         }
     }
 }

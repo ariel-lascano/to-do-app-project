@@ -4,6 +4,9 @@ using SharedModel;
 
 namespace WebAPI.Controllers
 {
+    /// <summary>
+    /// Manage CRUD operations server side.
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     public class ItemsController : Controller
