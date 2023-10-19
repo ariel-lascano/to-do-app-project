@@ -52,14 +52,16 @@
             treeView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             treeView.BackColor = SystemColors.Window;
             treeView.BorderStyle = BorderStyle.FixedSingle;
-            treeView.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            treeView.ForeColor = SystemColors.WindowFrame;
+            treeView.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            treeView.ForeColor = SystemColors.WindowText;
             treeView.Location = new Point(55, 5);
             treeView.Margin = new Padding(5);
             treeView.Name = "treeView";
             treeNode1.Name = "rootNode";
+            treeNode1.NodeFont = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             treeNode1.Text = "Todo items list";
             treeView.Nodes.AddRange(new TreeNode[] { treeNode1 });
+            treeView.ShowPlusMinus = false;
             treeView.Size = new Size(200, 280);
             treeView.TabIndex = 0;
             treeView.AfterSelect += treeView_AfterSelect;
@@ -112,7 +114,7 @@
             // dataGridView
             // 
             dataGridView.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.BackColor = SystemColors.ControlLight;
+            dataGridViewCellStyle1.BackColor = Color.WhiteSmoke;
             dataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView.BackgroundColor = SystemColors.Window;
@@ -120,7 +122,7 @@
             dataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
@@ -140,6 +142,7 @@
             dataGridView.Location = new Point(263, 5);
             dataGridView.MultiSelect = false;
             dataGridView.Name = "dataGridView";
+            dataGridView.RowHeadersVisible = false;
             dataGridView.RowTemplate.Height = 25;
             dataGridView.Size = new Size(318, 280);
             dataGridView.TabIndex = 8;
@@ -152,7 +155,7 @@
             priorityColumn.HeaderText = "Priority";
             priorityColumn.Name = "priorityColumn";
             priorityColumn.ReadOnly = true;
-            priorityColumn.Width = 74;
+            priorityColumn.Width = 77;
             // 
             // nameColumn
             // 
@@ -161,7 +164,7 @@
             nameColumn.DefaultCellStyle = dataGridViewCellStyle4;
             nameColumn.HeaderText = "Name";
             nameColumn.Name = "nameColumn";
-            nameColumn.Width = 68;
+            nameColumn.Width = 69;
             // 
             // descriptionColumn
             // 

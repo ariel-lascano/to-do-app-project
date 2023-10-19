@@ -29,16 +29,33 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            contentControl1 = new View.ContentControl();
+            logonButton = new Button();
+            contentControl = new View.ContentControl();
             SuspendLayout();
             // 
-            // contentControl1
+            // logonButton
             // 
-            contentControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            contentControl1.Location = new Point(12, 12);
-            contentControl1.Name = "contentControl1";
-            contentControl1.Size = new Size(760, 337);
-            contentControl1.TabIndex = 3;
+            logonButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            logonButton.AutoSize = true;
+            logonButton.BackColor = SystemColors.Window;
+            logonButton.BackgroundImageLayout = ImageLayout.Stretch;
+            logonButton.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            logonButton.Image = Properties.Resources.user_32;
+            logonButton.Location = new Point(682, 2);
+            logonButton.Name = "logonButton";
+            logonButton.Size = new Size(71, 38);
+            logonButton.TabIndex = 4;
+            logonButton.Text = "test";
+            logonButton.TextImageRelation = TextImageRelation.ImageBeforeText;
+            logonButton.UseVisualStyleBackColor = false;
+            // 
+            // contentControl
+            // 
+            contentControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            contentControl.Location = new Point(12, 46);
+            contentControl.Name = "contentControl";
+            contentControl.Size = new Size(760, 303);
+            contentControl.TabIndex = 5;
             // 
             // Form1
             // 
@@ -46,18 +63,20 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(784, 361);
-            Controls.Add(contentControl1);
+            Controls.Add(logonButton);
+            Controls.Add(contentControl);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(600, 350);
             Name = "Form1";
-            ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "WinClient Application";
+            Text = "WinClientApp";
             FormClosing += Form1_FormClosing;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
-        private View.ContentControl contentControl1;
+        private Button logonButton;
+        private View.ContentControl contentControl;
     }
 }

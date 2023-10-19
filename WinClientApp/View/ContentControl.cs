@@ -1,5 +1,4 @@
-﻿using SharedModel;
-using WinClientApp.Enums;
+﻿using WinClientApp.Enums;
 using WinClientApp.Properties;
 using WinClientApp.ViewModel;
 
@@ -13,15 +12,15 @@ namespace WinClientApp.View
         public ContentControl()
         {
             InitializeComponent();
-            AfterInitializeComponent();
         }
 
-        private void AfterInitializeComponent()
+        internal void AfterInitializeComponent()
         {
             // Retrive data from web service:
             _dataSource = ToDoItemViewModel.InitializeViewModels().OrderBy(oi => oi.Priority).ToList();
             _rootNode = treeView.Nodes[0];
 
+            ContentControlUtils.SetToolTip(newItemButton, Resources.NEW_ITEM);
             ContentControlUtils.SetToolTip(upButton, Resources.MOVE_UP);
             ContentControlUtils.SetToolTip(downButton, Resources.MOVE_DOWN);
             ContentControlUtils.SetToolTip(cancelButton, Resources.DELETE_SELECTED);
@@ -60,12 +59,16 @@ namespace WinClientApp.View
             ToDoItemViewModel toDoItemsViewModel = cellAfterEdit.OwningRow.Tag as ToDoItemViewModel;
 
             if (e.ColumnIndex == 1)
+            {
                 toDoItemsViewModel.Name = cellAfterEdit.Value.ToString();
+                toDoItemsViewModel.ItemNode.Text = ContentControlUtils.GetNodeText(toDoItemsViewModel.Priority, toDoItemsViewModel.Name);
+            }
             else
+            {
                 toDoItemsViewModel.Description = cellAfterEdit.Value.ToString();
-
+            }
             // TODO: Error management
-            HttpManager.Instance.Execute(HttpAction.Update, toDoItemsViewModel.GetModel());
+            toDoItemsViewModel.NotifyUpdate();
         }
 
         private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -97,16 +100,14 @@ namespace WinClientApp.View
             int? maxPriority = _dataSource.Max(i => i?.Priority);
             int nextPriorityValue = maxPriority == null ? 1 : (int)maxPriority + 1;
 
-            ToDoItemViewModel toDoItemViewModel = new ToDoItemViewModel(nextPriorityValue, Resources.NEW_ITEM_DEFAULT_NAME, string.Empty);
-            ToDoItem createdItem = HttpManager.Instance.Execute<ToDoItem>(HttpAction.Create, toDoItemViewModel.GetModel());
+            ToDoItemViewModel toDoItemViewModel = ToDoItemViewModel.GetNew(nextPriorityValue);
 
-            if (createdItem == null)
+            if (toDoItemViewModel == null)
             {
                 // Error management...
             }
             else
             {
-                toDoItemViewModel.SetModel(createdItem);
                 toDoItemViewModel.ItemNode = ContentControlUtils.GetNode(toDoItemViewModel);
                 toDoItemViewModel.ItemRow = ContentControlUtils.GetRow(toDoItemViewModel);
 
@@ -128,7 +129,7 @@ namespace WinClientApp.View
 
                 if (MessageBox.Show(messageFormat, Resources.WARNING, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                 {
-                    if (HttpManager.Instance.Execute(HttpAction.Delete, cancelViewModel.GetModel()))
+                    if (cancelViewModel.Remove())
                     {
                         cancelViewModel.ItemNode.Remove();
                         dataGridView.Rows.Remove(cancelViewModel.ItemRow);
@@ -137,7 +138,7 @@ namespace WinClientApp.View
                     }
                     else
                     {
-                        // MessageBox.Show("Eccezzione...")
+                        // MessageBox.Show("...")
                     }
                 }
             }

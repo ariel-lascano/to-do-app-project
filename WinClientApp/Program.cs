@@ -1,7 +1,11 @@
+using WinClientApp.Backend;
+
 namespace WinClientApp
 {
     internal static class Program
     {
+        internal static ClientHttp HttpClient;
+
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -9,7 +13,11 @@ namespace WinClientApp
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+
+            HttpClient = new ClientHttp();
+            Form1 mainWindow = new Form1(HttpClient.LogOnName);
+
+            Application.Run(mainWindow);
         }
     }
 }

@@ -7,9 +7,14 @@ namespace WinClientApp.View
     {
         private static string TextPattern => "{0} - {1}";
 
+        internal static string GetNodeText(int priority, string name)
+        {
+            return string.Format(TextPattern, priority, name); 
+        }
+
         internal static TreeNode GetNode(ToDoItemViewModel toDoItemViewModel)
         {
-            string text = string.Format(TextPattern, toDoItemViewModel.Priority, toDoItemViewModel.Name);
+            string text = GetNodeText(toDoItemViewModel.Priority, toDoItemViewModel.Name);
 
             TreeNode itemTreeNode = new TreeNode(text);
             itemTreeNode.Tag = toDoItemViewModel;
@@ -65,49 +70,77 @@ namespace WinClientApp.View
                 nearlyItem.Priority = selectedItemPriority;
 
                 // TODO: Error management
-                HttpManager.Instance.Execute(HttpAction.Update, selectedItem.GetModel());
-                HttpManager.Instance.Execute(HttpAction.Update, nearlyItem.GetModel());
-
+                
                 int selectedIndex = selectedItem.ItemNode.Parent.Nodes.IndexOf(selectedItem.ItemNode);
                 int nearlyIndex = nearlyItem.ItemNode.Parent.Nodes.IndexOf(nearlyItem.ItemNode);
 
                 SwapNodes(rootNode,selectedIndex, selectedItem, nearlyIndex, nearlyItem);
                 SwapRows(dataGridView, selectedIndex, selectedItem, nearlyIndex, nearlyItem);
+
+                nearlyItem.NotifyUpdate();
+                selectedItem.NotifyUpdate();
+
+                selectedItem.ItemNode.TreeView.SelectedNode = selectedItem.ItemNode;
             }
         }
 
         internal static void SwapNodes(TreeNode rootNode, int selectedIndex, ToDoItemViewModel selectedItem, int nearlyIndex, ToDoItemViewModel nearlyItem)
         {
-            selectedItem.ItemNode.Remove();
-            nearlyItem.ItemNode.Remove();
-            
             selectedItem.ItemNode.Text = string.Format(TextPattern, selectedItem.Priority, selectedItem.Name);
             nearlyItem.ItemNode.Text = string.Format(TextPattern, nearlyItem.Priority, nearlyItem.Name);
 
-            rootNode.Nodes.Insert(nearlyIndex, selectedItem.ItemNode);
+            TreeNode selectedNodeBackup = selectedItem.ItemNode;
+            TreeNode newSelectedNodeClone = (TreeNode)selectedNodeBackup.Clone();
+            selectedItem.ItemNode = newSelectedNodeClone;
+
+            TreeNode nearlyNodeBackup = nearlyItem.ItemNode;
+            TreeNode nearlyNodeClone = (TreeNode)nearlyNodeBackup.Clone();
+            nearlyItem.ItemNode = nearlyNodeClone;
+
             rootNode.Nodes.Insert(selectedIndex, nearlyItem.ItemNode);
+            rootNode.Nodes.Insert(nearlyIndex, selectedItem.ItemNode);
+
+            nearlyNodeBackup.Remove();
+            selectedNodeBackup.Remove();
         }
 
         internal static void SwapRows(DataGridView dataGridView, int selectedIndex, ToDoItemViewModel selectedItem, int nearlyIndex, ToDoItemViewModel nearlyItem)
         {
-            DataGridViewRow selectedRow = selectedItem.ItemRow;
-            DataGridViewRow nearlyRow = nearlyItem.ItemRow;
+            DataGridViewRow selectedRowBackup = selectedItem.ItemRow;
+            DataGridViewRow selectedRowClone = (DataGridViewRow)selectedRowBackup.Clone();
+            
+            selectedRowClone.Cells.Clear();
+            foreach (DataGridViewCell dataGridViewCell in selectedRowBackup.Cells)
+            {
+                DataGridViewCell dataGridViewCellClone = (DataGridViewCell)dataGridViewCell.Clone();
+                dataGridViewCellClone.Value = dataGridViewCell.Value;
+                
+                selectedRowClone.Cells.Add(dataGridViewCellClone);
+            }
 
-            dataGridView.Rows.Remove(selectedRow);
-            dataGridView.Rows.Remove(nearlyRow);
+            selectedRowClone.Cells[0].Value = selectedItem.Priority;
+            selectedItem.ItemRow = selectedRowClone;
 
-            selectedRow.Cells[0].Value = selectedItem.Priority;
-            nearlyRow.Cells[0].Value = nearlyItem.Priority;
+            DataGridViewRow nearlyRowBackup = nearlyItem.ItemRow;
+            DataGridViewRow nearlyRowClone = (DataGridViewRow)nearlyRowBackup.Clone();
 
-            if (dataGridView.Rows.Count > nearlyIndex)
-                dataGridView.Rows.Insert(nearlyIndex, selectedRow);
-            else
-                dataGridView.Rows.Add(selectedRow);
+            nearlyRowClone.Cells.Clear();
+            foreach (DataGridViewCell dataGridViewCell in nearlyRowBackup.Cells)
+            {
+                DataGridViewCell dataGridViewCellClone = (DataGridViewCell)dataGridViewCell.Clone();
+                dataGridViewCellClone.Value = dataGridViewCell.Value;
 
-            if (dataGridView.Rows.Count > selectedIndex)
-                dataGridView.Rows.Insert(selectedIndex, nearlyRow);
-            else
-                dataGridView.Rows.Add(nearlyRow);
+                nearlyRowClone.Cells.Add(dataGridViewCellClone);
+            }
+
+            nearlyRowClone.Cells[0].Value = nearlyItem.Priority;
+            nearlyItem.ItemRow = nearlyRowClone;
+            
+            dataGridView.Rows.Insert(selectedIndex, nearlyRowClone);
+            dataGridView.Rows.Insert(nearlyIndex, selectedRowClone);
+            
+            dataGridView.Rows.Remove(selectedRowBackup);
+            dataGridView.Rows.Remove(nearlyRowBackup);
         }
     }
 }

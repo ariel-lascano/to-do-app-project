@@ -1,27 +1,27 @@
-﻿using System.Text;
+﻿using System.Security.Principal;
+using System.Text;
 using System.Text.Json;
 using SharedModel;
 using WinClientApp.Enums;
 using WinClientApp.Properties;
 
-namespace WinClientApp
+namespace WinClientApp.Backend
 {
-    internal class HttpManager : IDisposable
+    internal class ClientHttp : IDisposable
     {
-        private HttpClient _httpClient = new HttpClient();
+        private HttpClient _httpClient;
+        private ChannelIR _channelIR;
 
-        private static HttpManager _instance = null;
-        internal static HttpManager Instance
+        internal string LogOnName { get; }
+
+        internal ClientHttp() 
         {
-            get
-            {
-                if (_instance == null)
-                    _instance = new HttpManager();
-                return _instance;
-            }
-        }
+            WindowsIdentity currentIdentity = WindowsIdentity.GetCurrent();
+            LogOnName = currentIdentity.Name;
 
-        private HttpManager() { }
+            _httpClient = new HttpClient();
+            _channelIR = new ChannelIR(LogOnName);
+        }
 
         private void GetRequestData(HttpAction action, ToDoItem data, out HttpMethod method, out string uri, out string dataJson)
         {
@@ -94,9 +94,15 @@ namespace WinClientApp
             return default;
         }
 
+        internal void SendNotificationToServer()
+        {
+            _channelIR.SendNotificationToServer().Wait();
+        }
+
         public void Dispose()
         {
             _httpClient.Dispose();
+            // _channelIR.Dispose();
         }
     }
 }

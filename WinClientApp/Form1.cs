@@ -7,10 +7,21 @@ namespace WinClientApp
             InitializeComponent();
         }
 
+        public Form1(string logOnName) : this()
+        {
+            AfterInitializeComponent(logOnName);
+        }
+
+        private void AfterInitializeComponent(string logOnName)
+        {
+            logonButton.Text = logOnName;
+            contentControl.AfterInitializeComponent();
+        }
+
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Cursor = Cursors.WaitCursor;
-            HttpManager.Instance.Dispose();
+            Program.HttpClient.Dispose();
             Cursor = Cursors.Default;
         }
     }

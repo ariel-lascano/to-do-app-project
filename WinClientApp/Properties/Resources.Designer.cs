@@ -146,6 +146,16 @@ namespace WinClientApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LoginUser {
+            get {
+                object obj = ResourceManager.GetObject("LoginUser", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Move down selected item.
         /// </summary>
         internal static string MOVE_DOWN {
@@ -164,6 +174,15 @@ namespace WinClientApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new item.
+        /// </summary>
+        internal static string NEW_ITEM {
+            get {
+                return ResourceManager.GetString("NEW_ITEM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Todo....
         /// </summary>
         internal static string NEW_ITEM_DEFAULT_NAME {
@@ -178,6 +197,16 @@ namespace WinClientApp.Properties {
         internal static string UPDATE_URI_FORMAT {
             get {
                 return ResourceManager.GetString("UPDATE_URI_FORMAT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap user_32 {
+            get {
+                object obj = ResourceManager.GetObject("user-32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

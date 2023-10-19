@@ -1,5 +1,7 @@
 ﻿using SharedModel;
+using WinClientApp.Backend;
 using WinClientApp.Enums;
+using WinClientApp.Properties;
 
 namespace WinClientApp.ViewModel
 {
@@ -31,34 +33,46 @@ namespace WinClientApp.ViewModel
         internal TreeNode ItemNode { get; set; }
         internal DataGridViewRow ItemRow { get; set; }
 
-        internal ToDoItemViewModel(int visualOrder, string name, string description)
-        {
-            _toDoItemModel = new ToDoItem(visualOrder, name, description);
-        }
-
         internal ToDoItemViewModel(ToDoItem toDoItem)
         {
             _toDoItemModel = toDoItem;
         }
 
-        internal ToDoItem GetModel()
+        internal void NotifyUpdate()
         {
-            return _toDoItemModel; 
+            Program.HttpClient.Execute(HttpAction.Update, _toDoItemModel);
+            Program.HttpClient.SendNotificationToServer();
         }
 
-        internal void SetModel(ToDoItem model)
+        internal bool Remove()
         {
-            _toDoItemModel = model;
+            if (Program.HttpClient.Execute(HttpAction.Delete, _toDoItemModel))
+            {
+                Program.HttpClient.SendNotificationToServer();
+                return true;
+            }
+            return false;
+        }
+
+        internal static ToDoItemViewModel GetNew(int nextPriorityValue)
+        {
+            ToDoItem toDoItem = new ToDoItem(nextPriorityValue, Resources.NEW_ITEM_DEFAULT_NAME, string.Empty);
+            toDoItem = Program.HttpClient.Execute<ToDoItem>(HttpAction.Create, toDoItem);
+            Program.HttpClient.SendNotificationToServer();
+            ToDoItemViewModel toDoItemViewModel = new ToDoItemViewModel(toDoItem);
+            return toDoItemViewModel;
         }
 
         internal static IEnumerable<ToDoItemViewModel> InitializeViewModels()
         {
-            IEnumerable<ToDoItem> data = HttpManager.Instance.Execute<IEnumerable<ToDoItem>>(HttpAction.Read, null);
+            IEnumerable<ToDoItem> data = Program.HttpClient.Execute<IEnumerable<ToDoItem>>(HttpAction.Read, null);
             
             if (data == null)
                 return new List<ToDoItemViewModel>();
             else
                 return data.Select(item => new ToDoItemViewModel(item));
         }
+
+        
     }
 }
